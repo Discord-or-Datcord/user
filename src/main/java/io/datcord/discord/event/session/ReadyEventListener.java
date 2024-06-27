@@ -50,11 +50,8 @@ public class ReadyEventListener extends ListenerAdapter {
         /**
          * Update global commands.
          */
-        CommandListUpdateAction commands = jda.updateCommands();
-        commands.addCommands(
+        jda.updateCommands().addCommands(readGlobalCommands()).queue();
 
-        );
-        commands.queue();
         logger.debug("Loaded global commands");
 
         /**
@@ -80,7 +77,52 @@ public class ReadyEventListener extends ListenerAdapter {
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create("http://localhost:8080/api/v1/commands?guildId=" + guildId))
+                .uri(URI.create("http://localhost:8080/api/v1/commands/guild?guildId=" + guildId))
+                .build();
+
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            JsonNode rootNode = mapper.readTree(response.body());
+            Collection<CommandData> commandDataList = new ArrayList<>();
+
+            logger.debug("Response {} ", response.body());
+            logger.info("root node is container node {}", rootNode.isContainerNode());
+            if (rootNode.isContainerNode()) {
+                for (JsonNode node : rootNode) {
+                    logger.debug("Parsing Node {}", node.toString());
+
+                    String commandJson = node.get("commandJson").asText();
+                    Integer id = node.get("id").asInt();
+
+                    logger.debug("Parsed command id {}", id);
+                    logger.debug("Parsing command json {}", commandJson);
+
+                    SlashCommandData slashCommandData = parseCommandData(commandJson);
+                    commandDataList.add(slashCommandData);
+                }
+            }
+
+            logger.debug("Read {} commands", commandDataList.size());
+
+            return commandDataList;
+        } catch (Exception e) {
+            logger.warn("No value returned from GET");
+            return Collections.emptyList();
+        }
+    }
+
+    /**
+     * Reads global command data
+     *
+     * TODO: Refactor this to a new class
+     *
+     * @return a collection of CommandData
+     */
+    private Collection<CommandData> readGlobalCommands() {
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/api/v1/commands/global"))
                 .build();
 
         try {

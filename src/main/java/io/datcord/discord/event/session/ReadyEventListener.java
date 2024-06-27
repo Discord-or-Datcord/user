@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.JsonSerializable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.google.common.eventbus.Subscribe;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -42,6 +43,7 @@ public class ReadyEventListener extends ListenerAdapter {
      * @param event the ReadyEvent
      */
     @Override
+    @Subscribe
     public void onReady(ReadyEvent event) {
         JDA jda = event.getJDA();
 

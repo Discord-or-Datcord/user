@@ -1,7 +1,6 @@
 package io.datcord;
 
-import io.datcord.discord.event.interaction.SlashCommandListener;
-import io.datcord.discord.event.session.ReadyEventListener;
+import io.datcord.discord.event.EventDispatcher;
 import net.dv8tion.jda.api.JDABuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,8 +34,8 @@ public class Application {
          */
         JDABuilder.createLight(System.getenv("BOT_TOKEN"), Collections.emptyList())
                 .addEventListeners(
-                        new ReadyEventListener(),
-                        new SlashCommandListener()
+
+                        new EventDispatcher()
                 )
                 .build();
     }

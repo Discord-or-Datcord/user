@@ -1,4 +1,4 @@
-package io.datcord.discord.event.session;
+package io.datcord.event.session;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.JsonSerializable;
@@ -238,7 +238,7 @@ public class ReadyEventListener extends ListenerAdapter {
      *
      * @param field        the field name
      * @param node         the JSON node
-     * @return the parsed field as a {@link com.fasterxml.jackson.databind.JsonNode JsonNode}
+     * @return the parsed field as a {@link JsonNode JsonNode}
      */
     private JsonNode parseField(String field,JsonNode node) {
         if (node.has(field)) {

@@ -1,6 +1,8 @@
-package io.datcord;
+package io.datcord.app;
 
-import io.datcord.discord.event.EventDispatcher;
+import com.google.common.eventbus.EventBus;
+import io.datcord.command.SlashCommandDispatcher;
+import io.datcord.event.EventDispatcher;
 import net.dv8tion.jda.api.JDABuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +28,8 @@ public class Application {
         // Log the start of the application
         logger.info("Starting Datcord User");
 
+        EventBus eventBus = new EventBus();
+
         /**
          * Create a new JDABuilder with the bot token from environment variables
          * and add event listeners for handling ready and slash command events.
@@ -34,9 +38,11 @@ public class Application {
          */
         JDABuilder.createLight(System.getenv("BOT_TOKEN"), Collections.emptyList())
                 .addEventListeners(
-
-                        new EventDispatcher()
+                        new EventDispatcher(eventBus),
+                        new SlashCommandDispatcher()
                 )
                 .build();
     }
+
+
 }

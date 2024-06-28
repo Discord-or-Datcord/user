@@ -1,6 +1,6 @@
 package io.datcord.command;
 
-import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 /**
  * Interface for handling slash command interactions.
@@ -12,6 +12,6 @@ public interface SlashCommandListener {
      *
      * @param commandInteraction The slash command interaction to handle.
      */
-    void onCommandReceived(SlashCommandInteraction commandInteraction);
+    void onCommandReceived(SlashCommandInteractionEvent commandInteraction);
 }
 

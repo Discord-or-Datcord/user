@@ -1,1 +1,0 @@
-package io.datcord.discord.event.session;

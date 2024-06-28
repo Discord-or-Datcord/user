@@ -2,6 +2,8 @@ package io.datcord.command;
 
 import com.google.common.eventbus.Subscribe;
 import io.datcord.command.impl.GreetSlashCommandListener;
+import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,15 +17,16 @@ import java.util.concurrent.ConcurrentHashMap;
  * Note that all commands are stored in the backend database and managed through events
  * Do not make listeners for commands that don't exist in the backend.
  */
-public class SlashCommandDispatcher {
+public class SlashCommandDispatcher extends ListenerAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(SlashCommandDispatcher.class);
+
 
     /**
      * Dispatches a received slash command to the appropriate listener.
      *
      * {@link Subscribe} is so the {@link com.google.common.eventbus.EventBus} can
-     * post to this method. See {@link io.datcord.discord.event.EventDispatcher}
+     * post to this method.
      *
      * TODO: Find out the difference between {@link SlashCommandInteraction} and
      * {@link net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent}
@@ -33,8 +36,8 @@ public class SlashCommandDispatcher {
      *
      * @param command The slash command interaction to be dispatched.
      */
-    @Subscribe
-    public void dispatch(SlashCommandInteraction command) {
+    @Override
+    public void onSlashCommandInteraction(SlashCommandInteractionEvent command) {
         logger.debug("Received Command [{}]", command.getFullCommandName());
         SlashCommandListener availableListener = commandListenerMap.get(command.getFullCommandName());
         if (availableListener != null) {

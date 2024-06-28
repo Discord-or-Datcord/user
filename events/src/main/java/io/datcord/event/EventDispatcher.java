@@ -1,8 +1,7 @@
-package io.datcord.discord.event;
+package io.datcord.event;
 
 import com.google.common.eventbus.EventBus;
-import io.datcord.command.SlashCommandDispatcher;
-import io.datcord.discord.event.session.ReadyEventListener;
+import io.datcord.event.session.ReadyEventListener;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.slf4j.Logger;
@@ -20,11 +19,11 @@ public class EventDispatcher extends ListenerAdapter {
 
     private void registerEventListeners() {
         eventBus.register(new ReadyEventListener());
-        eventBus.register(new SlashCommandDispatcher());
+//        eventBus.register(new SlashCommandDispatcher());
     }
 
-    public EventDispatcher() {
-        this.eventBus = new EventBus();
+    public EventDispatcher(EventBus eventBus) {
+        this.eventBus = eventBus;
 
         registerEventListeners();
     }

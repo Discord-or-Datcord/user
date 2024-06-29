@@ -1,6 +1,5 @@
 package io.datcord.command;
 
-import com.google.common.eventbus.Subscribe;
 import io.datcord.command.impl.GreetSlashCommandListener;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -25,8 +24,6 @@ public class SlashCommandDispatcher extends ListenerAdapter {
     /**
      * Dispatches a received slash command to the appropriate listener.
      *
-     * {@link Subscribe} is so the {@link com.google.common.eventbus.EventBus} can
-     * post to this method.
      *
      * TODO: Find out the difference between {@link SlashCommandInteraction} and
      * {@link net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent}

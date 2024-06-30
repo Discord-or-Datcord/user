@@ -1,14 +1,14 @@
 # Command Module
 
-This module serves as the core component for handling commands in the Datcord project. It acts as the parent module for all commands, facilitating modular command development and management.
+This module serves as the core component for handling commands in the Datcord project.
 
 ## Overview
 
-The command module is designed to centralize command handling logic and provide a structured approach for integrating and managing commands across the application. Each specific command is implemented as a separate module that inherits from this command module.
+The command module is designed to centralize command handling logic and provide a structured approach for integrating and managing commands across the application.
 
 ## Structure
 
-The project follows a modular architecture where each command is developed as a separate module under the command module. This approach allows for:
+The project follows a modular architecture where each command is developed as a separate module. This approach allows for:
 
 - **Modularity:** Each command module can be independently developed, tested, and maintained.
 - **Centralized Logic:** Command handling logic, such as parsing and execution, is centralized within the command module.
@@ -17,7 +17,7 @@ The project follows a modular architecture where each command is developed as a 
 ## Getting Started
 
 To create a new command:
-1. Create a new module with the command module (`commands`) as its parent.
+1. Create a new module with the root module as its parent.
 2. Implement the command logic within the new module.
 3. Ensure the new command module adheres to the interface and conventions defined in the command module.
 

@@ -27,7 +27,7 @@ import java.util.Collections;
 
 /**
  * Listener class that handles the bot {@link ReadyEvent} and updates global command and guild commands.
- *
+ * <p>
  * TODO: Refactor command loading and REST methods to another class
  */
 public class ReadyEventListener extends ListenerAdapter {

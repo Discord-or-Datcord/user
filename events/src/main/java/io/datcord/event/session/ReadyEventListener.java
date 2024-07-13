@@ -45,6 +45,7 @@ public class ReadyEventListener extends ListenerAdapter {
     @Override
     @Subscribe
     public void onReady(ReadyEvent event) {
+
         JDA jda = event.getJDA();
 
         /**
@@ -60,9 +61,30 @@ public class ReadyEventListener extends ListenerAdapter {
         jda.getGuilds().forEach(guild -> {
             logger.debug("Loading commands for guild {}", guild.getName());
             guild.updateCommands().addCommands(readCommandDataForGuild(guild.getIdLong())).queue();
+            logger.debug("Loaded features for guild {}", guild.getName());
+            readFeatureDataForGuild(guild.getIdLong());
         });
 
         logger.debug("All commands loaded");
+    }
+
+    private void readFeatureDataForGuild(long guildId) {
+
+        HttpClient client = HttpClient.newHttpClient();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create("http://localhost:8080/api/v1/features/guild?guildId=" + guildId))
+                .build();
+
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            JsonNode rootNode = mapper.readTree(response.body());
+
+
+            logger.debug("Response {} ", response.body());
+            logger.info("root node is container node {}", rootNode.isContainerNode());
+        } catch (Exception e) {
+            logger.warn("No value returned from GET");
+        }
     }
 
     /**

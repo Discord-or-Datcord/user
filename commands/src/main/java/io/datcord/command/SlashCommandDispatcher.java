@@ -25,7 +25,7 @@ public class SlashCommandDispatcher extends ListenerAdapter {
     }
 
     /**
-     * Registers the command listeners.
+     * Registers the global command listeners.
      */
     private void registerCommandListeners() {
         SlashCommandListenerRegistry.register("greet", new GreetSlashCommandListener());

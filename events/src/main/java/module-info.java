@@ -12,4 +12,5 @@ module events {
     exports io.datcord.event.session;
     exports io.datcord.event.interaction.registry;
     exports io.datcord.event.interaction.dispatcher;
+    exports io.datcord.event.message;
 }

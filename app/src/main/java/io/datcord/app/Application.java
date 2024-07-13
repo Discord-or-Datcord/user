@@ -5,7 +5,9 @@ import io.datcord.command.SlashCommandDispatcher;
 import io.datcord.event.EventDispatcher;
 import io.datcord.event.interaction.dispatcher.ButtonInteractionEventDispatcher;
 import io.datcord.event.interaction.dispatcher.EntitySelectInteractionEventDispatcher;
+import io.datcord.event.message.MessageReceivedEventListener;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +40,10 @@ public class Application {
          *
          * TODO: Change event listeners to a single event dispatcher
          */
-        JDABuilder.createLight(System.getenv("BOT_TOKEN"), Collections.emptyList())
+        JDABuilder.createDefault(System.getenv("BOT_TOKEN"), Collections.emptyList())
+                .enableIntents(
+                        GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)
+                )
                 .addEventListeners(
                         new EventDispatcher(eventBus),
                         new SlashCommandDispatcher(),

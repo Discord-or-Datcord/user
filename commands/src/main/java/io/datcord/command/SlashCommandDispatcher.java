@@ -19,6 +19,19 @@ public class SlashCommandDispatcher extends ListenerAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(SlashCommandDispatcher.class);
 
+
+    /**
+     * Dispatches a received slash command to the appropriate listener.
+     *
+     *
+     * TODO: Find out the difference between {@link SlashCommandInteraction} and
+     * {@link net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent}
+     * and if it has an impact on our application. The standard SlashCommandListener example
+     * provided by JDA on GitHub uses {@link net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent},
+     * however, this is currently what event is dispatched.
+     *
+     * @param command The slash command interaction to be dispatched.
+     */
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent command) {
         SlashCommandListenerRegistry.post(command);

@@ -13,6 +13,7 @@
         <module>events</module>
         <module>app</module>
         <module>commands</module>
+        <module>command/ticket</module>
     </modules>
 
     <properties>

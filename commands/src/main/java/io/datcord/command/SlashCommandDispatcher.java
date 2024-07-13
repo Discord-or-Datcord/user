@@ -3,7 +3,6 @@ package io.datcord.command;
 import io.datcord.command.impl.GreetSlashCommandListener;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.interactions.commands.SlashCommandInteraction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,8 +12,8 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Dispatcher class for handling slash commands.
  *
- * Note that all commands are stored in the backend database and managed through events
- * Do not make listeners for commands that don't exist in the backend.
+ * <p>Note that all commands are stored in the backend database and managed through events.
+ * Do not make listeners for commands that don't exist in the backend.</p>
  */
 public class SlashCommandDispatcher extends ListenerAdapter {
 
@@ -35,22 +34,14 @@ public class SlashCommandDispatcher extends ListenerAdapter {
      */
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent command) {
-        logger.debug("Received Command [{}]", command.getFullCommandName());
-        SlashCommandListener availableListener = commandListenerMap.get(command.getFullCommandName());
-        if (availableListener != null) {
-            logger.debug("Dispatching command [{}] to listener [{}]", command.getFullCommandName(), availableListener.getClass().getName());
-            availableListener.onCommandReceived(command);
-        } else {
-            //TODO: Report back to the user that the command failed
-            logger.debug("No listener found for command [{}]", command.getFullCommandName());
-        }
+        SlashCommandListenerRegistry.post(command);
     }
 
     /**
      * Registers the command listeners.
      */
     private void registerCommandListeners() {
-        commandListenerMap.put("greet", new GreetSlashCommandListener());
+        SlashCommandListenerRegistry.register("greet", new GreetSlashCommandListener());
     }
 
     /**

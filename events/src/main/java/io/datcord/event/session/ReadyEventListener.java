@@ -47,8 +47,8 @@ public class ReadyEventListener extends ListenerAdapter {
          */
         jda.getGuilds().forEach(guild -> {
             logger.debug("Loading commands for guild {}", guild.getName());
-            readCommands(guild.getIdLong());
             guild.updateCommands().addCommands(readCommands(guild.getIdLong())).queue();
+            logger.debug("Loaded commands for guild {}", guild.getIdLong());
             logger.debug("Loaded features for guild {}", guild.getName());
             //TODO: Add feature loading
         });

@@ -1,6 +1,8 @@
 package io.datcord.mapper.json.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import io.datcord.mapper.json.JsonMapper;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -10,6 +12,8 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.stream.IntStream;
 
 /**
  * This is {@code SlashCommandJsonMapper} class, which extends the {@code JsonMapper<CommandData>} abstract class.
@@ -29,8 +33,19 @@ public class SlashCommandJsonMapper extends JsonMapper<CommandData> {
 
     private static final Logger logger = LoggerFactory.getLogger(SlashCommandJsonMapper.class);
 
+
     @Override
-    protected CommandData parseObject(JsonNode commandNode)  {
+    protected CommandData parseObject(JsonNode node)  {
+        JsonNode commandJsonNode = node.get("commandJson");
+        JsonNode commandNode = null;
+        try {
+            commandNode = mapper.readTree(commandJsonNode.asText());
+        } catch (JsonProcessingException e) {
+            logger.error("Failed to parse command json", e);
+            throw new RuntimeException(e);
+        }
+        logger.debug("Parsing command data {}", commandNode.toString());
+        logger.debug("Command name {}", commandNode.get("name"));
         String name = commandNode.get("name").asText();
         String description = commandNode.get("description").asText();
 
@@ -91,4 +106,5 @@ public class SlashCommandJsonMapper extends JsonMapper<CommandData> {
         return slashCommandData;
     }
 
+    private final ObjectMapper mapper = new ObjectMapper();
 }

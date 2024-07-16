@@ -7,6 +7,7 @@ module events {
     requires org.slf4j;
     requires com.fasterxml.jackson.databind;
     requires java.net.http;
+    requires util;
     exports io.datcord.event;
     exports io.datcord.event.interaction;
     exports io.datcord.event.session;

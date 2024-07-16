@@ -5,6 +5,7 @@ import io.datcord.api.service.command.CommandService;
 import io.datcord.api.service.command.CommandServiceImpl;
 import io.datcord.mapper.json.JsonMapper;
 import io.datcord.mapper.json.impl.SlashCommandJsonMapper;
+import io.datcord.util.ApplicationConfigUtils;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.events.session.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -35,14 +36,22 @@ public class ReadyEventListener extends ListenerAdapter {
 
         JDA jda = event.getJDA();
 
-        /**
+        //This is here to prevent rate limit issues if the bot needs to be restarted multiple times in quick succession
+        //Set this property to false if you are not working on commands actively
+        if (ApplicationConfigUtils.getBooleanProperty("io.datcord.application.enable_command_loading")) {
+            loadCommands(jda);
+        }
+    }
+
+    private void loadCommands(JDA jda) {
+        /*
          * Update global commands.
          */
         jda.updateCommands().addCommands(readCommands()).queue();
 
         logger.debug("Loaded global commands");
 
-        /**
+        /*
          * Update commands for each guild.
          */
         jda.getGuilds().forEach(guild -> {

@@ -1,11 +1,8 @@
 package io.datcord.app;
 
-import com.google.common.eventbus.EventBus;
 import io.datcord.command.SlashCommandDispatcher;
+import io.datcord.event.EventBusProvider;
 import io.datcord.event.EventDispatcher;
-import io.datcord.event.interaction.dispatcher.ButtonInteractionEventDispatcher;
-import io.datcord.event.interaction.dispatcher.EntitySelectInteractionEventDispatcher;
-import io.datcord.event.message.MessageReceivedEventListener;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import org.slf4j.Logger;
@@ -32,7 +29,6 @@ public class Application {
         // Log the start of the application
         logger.info("Starting Datcord User");
 
-        EventBus eventBus = new EventBus();
 
         /**
          * Create a new JDABuilder with the bot token from environment variables
@@ -45,10 +41,8 @@ public class Application {
                         GatewayIntent.getIntents(GatewayIntent.ALL_INTENTS)
                 )
                 .addEventListeners(
-                        new EventDispatcher(eventBus),
-                        new SlashCommandDispatcher(),
-                        new ButtonInteractionEventDispatcher(),
-                        new EntitySelectInteractionEventDispatcher()
+                        new EventDispatcher(EventBusProvider.getEventBus()),
+                        new SlashCommandDispatcher()
                 )
                 .build();
     }

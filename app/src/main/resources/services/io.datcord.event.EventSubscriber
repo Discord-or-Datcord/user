@@ -1,0 +1,2 @@
+io.datcord.command.jira.JiraSlashCommandListener,
+io.datcord.command.jira.JiraSlashCommandEntitySelectionInteractionEventListener

@@ -1,10 +1,8 @@
 package io.datcord.event;
 
 import com.google.common.eventbus.EventBus;
-import io.datcord.event.message.MessageReceivedEventListener;
 import io.datcord.event.session.ReadyEventListener;
 import net.dv8tion.jda.api.events.GenericEvent;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +37,7 @@ public class EventDispatcher extends ListenerAdapter {
      */
     private void registerEventListeners() {
         eventBus.register(new ReadyEventListener());
-        eventBus.register(new MessageReceivedEventListener());
+        SubscriberRegistrar.registerSubscribers(eventBus);
     }
 
     public EventDispatcher(EventBus eventBus) {

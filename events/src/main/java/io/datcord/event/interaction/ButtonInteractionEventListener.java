@@ -1,5 +1,6 @@
 package io.datcord.event.interaction;
 
+import io.datcord.event.EventListener;
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
 
 /**
@@ -9,12 +10,12 @@ import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent;
  * handles the specific button interaction event from Discord's JDA API.
  * "ButtonInteractionEvent" is a class from JDA representing a button click by a user in discord.
  */
-public interface ButtonInteractionEventListener {
+public interface ButtonInteractionEventListener extends EventListener<ButtonInteractionEvent> {
 
     /**
      * Triggered when a user interacts with a button on Discord.
      *
      * @param event The event triggered by a button interaction on Discord.
      */
-    void onButtonInteractionEvent(ButtonInteractionEvent event);
+    void onEvent(ButtonInteractionEvent event);
 }

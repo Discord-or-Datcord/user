@@ -1,6 +1,8 @@
 package io.datcord.command;
 
+import com.google.common.eventbus.Subscribe;
 import io.datcord.command.impl.GreetSlashCommandListener;
+import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.slf4j.Logger;
@@ -23,7 +25,6 @@ public class SlashCommandDispatcher extends ListenerAdapter {
     public void onSlashCommandInteraction(SlashCommandInteractionEvent command) {
         SlashCommandListenerRegistry.post(command);
     }
-
     /**
      * Registers the global command listeners.
      */

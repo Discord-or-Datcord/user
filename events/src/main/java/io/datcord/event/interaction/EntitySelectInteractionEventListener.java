@@ -1,5 +1,7 @@
 package io.datcord.event.interaction;
 
+import io.datcord.event.EventListener;
+import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.component.EntitySelectInteractionEvent;
 
 /**
@@ -12,12 +14,12 @@ import net.dv8tion.jda.api.events.interaction.component.EntitySelectInteractionE
  * For example - the selected option in a dropdown menu in the Discord chat.
  * Implement classes can use this information to create specific interactive experiences based on the selections made by the users.
  */
-public interface EntitySelectInteractionEventListener {
+public interface EntitySelectInteractionEventListener extends EventListener<EntitySelectInteractionEvent> {
 
     /**
      * React to an EntitySelectInteractionEvent.
      *
      * @param event The EntitySelectInteractionEvent that will be processed
      */
-    void onEntitySelectInteraction(EntitySelectInteractionEvent event);
+    void onEvent(EntitySelectInteractionEvent event);
 }

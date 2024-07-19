@@ -14,7 +14,8 @@
         <module>app</module>
         <module>commands</module>
         <module>util</module>
-        <module>command/ticket</module>
+        <module>command/jira</module>
+        <module>feature/jira_assignee_ping</module>
     </modules>
 
     <properties>

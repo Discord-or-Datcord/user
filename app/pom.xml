@@ -30,9 +30,17 @@
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
+<!--        Add Command Modules Under Here - The module MUST be added as a dependency to be visible-->
         <dependency>
             <groupId>io.datcord</groupId>
-            <artifactId>ticket</artifactId>
+            <artifactId>jira</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>runtime</scope>
+        </dependency>
+<!--        Add Feature modules under here - The module MUST be added as a dependency to be visible-->
+        <dependency>
+            <groupId>io.datcord</groupId>
+            <artifactId>jira_assignee_ping</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>runtime</scope>
         </dependency>

@@ -17,7 +17,10 @@ import java.util.Collection;
 
 /**
  * Listener class that handles the bot {@link ReadyEvent} and updates global command and guild commands.
+ *
+ * Deprecated - Will be migrating to new event system. Code won't change much internally
  */
+@Deprecated(forRemoval = true)
 public class ReadyEventListener extends ListenerAdapter {
 
     /**
@@ -99,7 +102,7 @@ public class ReadyEventListener extends ListenerAdapter {
     private Collection<CommandData> getCommandData(String response) {
         JsonMapper<CommandData> commandDataJsonMapper = new SlashCommandJsonMapper();
 
-        return commandDataJsonMapper.fromJson(response);
+        return commandDataJsonMapper.fromJsonAsCollection(response);
     }
 
 }

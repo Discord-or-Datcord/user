@@ -13,4 +13,5 @@ module events {
     exports io.datcord.event.session;
     exports io.datcord.event.message;
     exports io.datcord.event.interaction.command;
+    exports io.datcord.mapper.json;
 }

@@ -28,7 +28,25 @@ public abstract class JsonMapper<T> {
      * @param jsonBody the JSON string to convert
      * @return a collection of parsed objects
      */
-    public Collection<T> fromJson(String jsonBody) {
+    public T fromJson(String jsonBody) {
+        JsonNode rootNode = mapRoot(jsonBody);
+        logger.debug("Root node: {}", rootNode);
+//
+//        if (rootNode.isContainerNode()) {
+//            Collection<T> outputList = new ArrayList<>();
+//            for (JsonNode node : rootNode) {
+//                logger.debug("Parsing node {}", node);
+//                T parsedObject = parseObject(node);
+//                logger.debug("Parsed object {}", parsedObject);
+//                outputList.add(parsedObject);
+//            }
+//            return outputList;
+//        }
+        return parseObject(rootNode);
+    }
+
+
+    public Collection<T> fromJsonAsCollection(String jsonBody) {
         JsonNode rootNode = mapRoot(jsonBody);
         Collection<T> outputList = new ArrayList<>();
         if (rootNode.isContainerNode()) {
@@ -38,6 +56,7 @@ public abstract class JsonMapper<T> {
                 logger.debug("Parsed object {}", parsedObject);
                 outputList.add(parsedObject);
             }
+
         }
         return outputList;
     }

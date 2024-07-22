@@ -8,6 +8,8 @@ import net.dv8tion.jda.api.events.interaction.component.EntitySelectInteractionE
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
+
 public class JiraSlashCommandEntitySelectionInteractionEventListener implements EntitySelectInteractionEventListener, EventSubscriber {
 
     private static final Logger logger = LoggerFactory.getLogger(JiraSlashCommandEntitySelectionInteractionEventListener.class);
@@ -15,7 +17,14 @@ public class JiraSlashCommandEntitySelectionInteractionEventListener implements 
     @Subscribe
     @Override
     public void onEvent(EntitySelectInteractionEvent event) {
-        logger.info("Received event {}", event.getSelectMenu().getId());
+        logger.info("Received Jira Entity select event {}", event.getSelectMenu().getId());
+        if (Objects.requireNonNull(event.getSelectMenu().getId()).equals("jira_user_assignee_mapping")) {
+            ResponseBuilder.mapLongField("userId",event.getInteraction().getUser().getIdLong());
+
+            logger.info("Response {}",ResponseBuilder.asJsonString());
+
+            ResponseBuilder.jiraAssociationPOST();
+        }
     }
 
     public JiraSlashCommandEntitySelectionInteractionEventListener() {

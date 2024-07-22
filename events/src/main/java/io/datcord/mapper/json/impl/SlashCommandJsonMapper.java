@@ -13,8 +13,6 @@ import net.dv8tion.jda.api.interactions.commands.build.SlashCommandData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.stream.IntStream;
-
 /**
  * This is {@code SlashCommandJsonMapper} class, which extends the {@code JsonMapper<CommandData>} abstract class.
  *

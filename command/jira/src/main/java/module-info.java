@@ -7,6 +7,8 @@ module jira {
     requires org.slf4j;
     requires events;
     requires com.google.common;
+    requires java.net.http;
+    requires com.fasterxml.jackson.databind;
 
     exports io.datcord.command.jira;
 

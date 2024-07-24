@@ -32,7 +32,7 @@ public class JiraAssigneeWebhookMessageReceivedEventListener implements MessageR
     public void onEvent(MessageReceivedEvent event) {
         if (event.isWebhookMessage()) {
             logger.info("Received webhook message");
-            if (event.getAuthor().isBot() && event.getAuthor().getIdLong() == 1255700426435596374L) { //TODO - remove this hardcoded ID for Jira webhook
+            if (event.getAuthor().isBot() && event.getAuthor().getIdLong() == 1255700426435596374L || eventgetAuthor.().getIdLong() == 1262443753738731561L) { //TODO - remove this hardcoded ID for Jira webhook
                 for (MessageEmbed embed : event.getMessage().getEmbeds()) {
                     for (MessageEmbed.Field field : embed.getFields()) {
                         if (Objects.requireNonNull(field.getName()).equalsIgnoreCase("Assignee")) {
